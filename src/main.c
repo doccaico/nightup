@@ -16,8 +16,6 @@
 
 #define NIGHTUP_INI ".nightup"
 
-// void zig_install(const char* install_path);
-
 void help_and_exit(void)
 {
     fprintf(stderr, "Usage:\n nightup LANG\n");
@@ -85,8 +83,6 @@ int main(int argc, char** argv)
     } else {
         help_and_exit();
     }
-
-    printf("install_path: %s\n", install_path);
 
     free(install_path);
 

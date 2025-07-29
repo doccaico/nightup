@@ -1,16 +1,16 @@
+#include <direct.h> // _chdir
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> // chdir
-#include <sys/stat.h> // stat
+#include <sys/stat.h> // _stat
 
 #include "m-string.h"
 
 void zig_install(const char* install_path)
 {
     // 作業ディレクトリを変更する
-    const char* working_dir = "/home/doccaico/Downloads";
-    if (chdir(working_dir) == -1) {
-        fprintf(stderr, "Error: failed to chdir '%s'\n", working_dir);
+    const char* working_dir = "C:\\Users\\doccaico\\Downloads";
+    if (_chdir(working_dir) != 0) {
+        fprintf(stderr, "Error: failed to _chdir '%s'\n", working_dir);
         exit(1);
     }
 
@@ -22,10 +22,10 @@ void zig_install(const char* install_path)
     FILE* stream;
     const int max_buf_size = 128;
     char buf[max_buf_size];
-    stream = popen("cat index.json | jq -r '.master.\"x86_64-linux\".tarball'", "r");
+    stream = _popen("type index.json | jq -r \".master.\"\"x86_64-windows\"\".tarball\"", "r");
     if (stream) {
         fgets(buf, max_buf_size, stream);
-        pclose(stream);
+        _pclose(stream);
     }
     string_t url;
     string_init_set_str(url, buf);
@@ -43,15 +43,15 @@ void zig_install(const char* install_path)
     // 解凍
     size_t i = string_search_rchar(url, '/');
     const char* tarname = &string_get_cstr(url)[i + 1];
-    string_printf(cmd, "tar xf %s", tarname);
+    string_printf(cmd, "7za x -aoa %s -bso0 -bsp0", tarname);
     system(string_get_cstr(cmd));
     string_reset(cmd);
     fprintf(stdout, "Extraction is done\n");
 
     // インストール先のディレクトリが存在したら削除する
-    struct stat st = {0};
-    if (stat(install_path, &st) != -1) {
-        string_printf(cmd, "rm -rf %s", install_path);
+    struct _stat st;
+    if (_stat(install_path, &st) == 0) {
+        string_printf(cmd, "rmdir /s /q %s", install_path);
         system(string_get_cstr(cmd));
         string_reset(cmd);
         fprintf(stdout, "Removed: %s\n", install_path);
@@ -60,19 +60,19 @@ void zig_install(const char* install_path)
     // 移動
     string_t src;
     string_init_set_str(src, tarname);
-    i  = string_search_str(src, ".tar.xz");
+    i  = string_search_str(src, ".zip");
     memcpy(buf, string_get_cstr(src), i);
     buf[i] = '\0';
-    string_printf(cmd, "mv -f %s %s", buf, install_path);
+    string_printf(cmd, "move %s %s > nul", buf, install_path);
     system(string_get_cstr(cmd));
     string_reset(cmd);
     fprintf(stdout, "Moved: %s\n", install_path);
 
     // tar.xzとindex.jsonを削除する
-    string_printf(cmd, "rm %s", tarname);
+    string_printf(cmd, "del %s", tarname);
     system(string_get_cstr(cmd));
     string_reset(cmd);
-    string_printf(cmd, "rm %s", "index.json");
+    string_printf(cmd, "del %s", "index.json");
     system(string_get_cstr(cmd));
     fprintf(stdout, "Unnecessary files deleted\n");
 
