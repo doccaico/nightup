@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> // fprintf, popen, pclose
+#include <stdlib.h> // exit, system
 #include <unistd.h> // chdir
 #include <sys/stat.h> // stat
 
