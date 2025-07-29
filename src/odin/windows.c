@@ -74,7 +74,7 @@ void odin_install(const char* install_path)
     string_reset(cmd);
     fprintf(stdout, "Moved: %s\n", install_path);
 
-    // tar.gzとnightly.jsonを削除する
+    // zipとnightly.jsonを削除する
     string_printf(cmd, "del %s", string_get_cstr(filename));
     system(string_get_cstr(cmd));
     system("del nightly.json");
