@@ -7,9 +7,9 @@ $ nightup [lang]
 ```
 
 ## Supported languages
-- zig
-- odin
-- v
+- [zig](https://github.com/ziglang/zig)
+- [odin](https://github.com/odin-lang/Odin)
+- [v](https://github.com/vlang/v)
 
 ## Build
 ```sh
