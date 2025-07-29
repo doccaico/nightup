@@ -33,9 +33,11 @@ $ ./build.bash release
 zig=C:\Langs\zig
 odin=C:\Langs\odin
 v=C:\Langs\v
+go=C:\Langs\go
 
 [Linux]
 zig=/home/doccaico/langs/zig
 odin=/home/doccaico/langs/odin
 v=/home/doccaico/langs/v
+go=/home/doccaico/langs/go
 ```
