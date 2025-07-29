@@ -71,9 +71,7 @@ void zig_install(const char* install_path)
     // tar.xzとindex.jsonを削除する
     string_printf(cmd, "del %s", tarname);
     system(string_get_cstr(cmd));
-    string_reset(cmd);
-    string_printf(cmd, "del %s", "index.json");
-    system(string_get_cstr(cmd));
+    system("del nightly.json");
     fprintf(stdout, "Unnecessary files deleted\n");
 
     // 文字列をfreeする
