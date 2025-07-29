@@ -35,7 +35,6 @@ void go_install(const char* install_path)
     string_printf(url, "https://go.dev/dl/%s", string_get_cstr(filename));
     fprintf(stdout, "Download URL => '%s'\n", string_get_cstr(filename));
 
-    // TODO
     // ダウンロード (tar.gz)
     string_t cmd;
     string_init(cmd);
@@ -46,7 +45,7 @@ void go_install(const char* install_path)
 
     // 解凍
     const char* tarname = string_get_cstr(filename);
-    string_printf(cmd, "7za x -aoa %s -bso0 -bsp0", tarname);
+    string_printf(cmd, "tar xzf %s", tarname);
     system(string_get_cstr(cmd));
     string_reset(cmd);
     fprintf(stdout, "Extraction is done\n");
@@ -66,7 +65,7 @@ void go_install(const char* install_path)
     string_reset(cmd);
     fprintf(stdout, "Moved: %s\n", install_path);
 
-    // zipとgo.jsonを削除する
+    // tar.gzとgo.jsonを削除する
     string_printf(cmd, "rm %s", tarname);
     system(string_get_cstr(cmd));
     system("rm go.json");
