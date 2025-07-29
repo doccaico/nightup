@@ -1,4 +1,3 @@
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
@@ -8,8 +7,10 @@
 
 #ifdef _WIN32
     #include "zig/windows.c"
+    #include "odin/windows.c"
 #elif __linux__
     #include "zig/linux.c"
+    #include "odin/linux.c"
 #else
     #error Unsupported Os.
 #endif
@@ -20,7 +21,7 @@ void help_and_exit(void)
 {
     fprintf(stderr, "Usage:\n nightup LANG\n");
     fprintf(stderr, "\nSupported languages:\n");
-    fprintf(stderr, "\t zig\n");
+    fprintf(stderr, "\tzig, odin\n");
     exit(1);
 }
 
@@ -80,6 +81,9 @@ int main(int argc, char** argv)
     if (strcmp(argv[1], "zig") == 0) {
         install_path = get_install_path(home_dir, "zig");
         zig_install(install_path);
+    } else if (strcmp(argv[1], "odin") == 0) {
+        install_path = get_install_path(home_dir, "odin");
+        odin_install(install_path);
     } else {
         help_and_exit();
     }
