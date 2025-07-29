@@ -8,9 +8,11 @@
 #ifdef _WIN32
     #include "zig/windows.c"
     #include "odin/windows.c"
+    #include "v/windows.c"
 #elif __linux__
     #include "zig/linux.c"
     #include "odin/linux.c"
+    #include "v/linux.c"
 #else
     #error Unsupported Os.
 #endif
@@ -21,7 +23,7 @@ void help_and_exit(void)
 {
     fprintf(stderr, "Usage:\n nightup LANG\n");
     fprintf(stderr, "\nSupported languages:\n");
-    fprintf(stderr, "\tzig, odin\n");
+    fprintf(stderr, "\tzig, odin, v\n");
     exit(1);
 }
 
@@ -84,6 +86,9 @@ int main(int argc, char** argv)
     } else if (strcmp(argv[1], "odin") == 0) {
         install_path = get_install_path(home_dir, "odin");
         odin_install(install_path);
+    } else if (strcmp(argv[1], "v") == 0) {
+        install_path = get_install_path(home_dir, "v");
+        v_install(install_path);
     } else {
         help_and_exit();
     }
