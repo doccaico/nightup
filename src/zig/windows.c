@@ -1,6 +1,6 @@
-#include <direct.h> // _chdir
 #include <stdio.h>
 #include <stdlib.h>
+#include <direct.h> // _chdir
 #include <sys/stat.h> // _stat
 
 #include "m-string.h"
