@@ -22,7 +22,7 @@ void v_install(const char* install_path)
     FILE* stream;
     const int max_buf_size = 128;
     char buf[max_buf_size];
-    stream = _popen("cat latest | jq -r \".assets[3].browser_download_url\"", "r");
+    stream = _popen("type latest | jq -r \".assets[3].browser_download_url\"", "r");
     if (stream) {
         fgets(buf, max_buf_size, stream);
         _pclose(stream);
