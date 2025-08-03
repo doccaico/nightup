@@ -22,7 +22,7 @@ void go_install(const char* install_path)
     FILE* stream;
     const int max_buf_size = 128;
     char buf[max_buf_size];
-    stream = popen("cat go.json | jq -r \".[0].files[] | select(.os == \"\"windows\"\" and .arch == \"\"amd64\"\" and .kind == \"\"archive\"\").filename\"", "r");
+    stream = popen("type go.json | jq -r \".[0].files[] | select(.os == \"\"windows\"\" and .arch == \"\"amd64\"\" and .kind == \"\"archive\"\").filename\"", "r");
     if (stream) {
         fgets(buf, max_buf_size, stream);
         _pclose(stream);
