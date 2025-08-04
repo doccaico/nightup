@@ -14,9 +14,9 @@ void go_install(const char* install_path)
         exit(1);
     }
 
-    // index.jsonを取得する
+    // go.jsonを取得する
     system("curl -sSL https://go.dev/dl/?mode=json -o go.json");
-    fprintf(stdout, "Download (index.json) is done\n");
+    fprintf(stdout, "Download (go.json) is done\n");
 
     // ダウンロードURLを取得する
     FILE* stream;
@@ -65,7 +65,7 @@ void go_install(const char* install_path)
     string_reset(cmd);
     fprintf(stdout, "Moved: %s\n", install_path);
 
-    // zipとindex.jsonを削除する
+    // zipとgo.jsonを削除する
     string_printf(cmd, "del %s", tarname);
     system(string_get_cstr(cmd));
     system("del go.json");
