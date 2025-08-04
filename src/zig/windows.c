@@ -32,13 +32,13 @@ void zig_install(const char* install_path)
     string_strim(url);
     fprintf(stdout, "Download URL => '%s'\n", string_get_cstr(url));
 
-    // ダウンロード (tar.xz)
+    // ダウンロード (zip)
     string_t cmd;
     string_init(cmd);
     string_printf(cmd, "curl -sSOL %s", string_get_cstr(url));
     system(string_get_cstr(cmd));
     string_reset(cmd);
-    fprintf(stdout, "Download (tar.xz) is done\n");
+    fprintf(stdout, "Download (zip) is done\n");
 
     // 解凍
     size_t i = string_search_rchar(url, '/');
@@ -68,7 +68,7 @@ void zig_install(const char* install_path)
     string_reset(cmd);
     fprintf(stdout, "Moved: %s\n", install_path);
 
-    // tar.xzとindex.jsonを削除する
+    // zipとindex.jsonを削除する
     string_printf(cmd, "del %s", tarname);
     system(string_get_cstr(cmd));
     system("del index.json");
